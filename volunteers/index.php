@@ -43,6 +43,31 @@
                   <div class="page-wrapper">
                     <div class="page-body">
                       <div class="row">
+                        <div class="col-12">
+                          <?php 
+                          if(isset($_SESSION['add_success'])) {
+                            
+                                      echo '<div class="alert alert-success" id="alert_msg_id">
+                                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <i class="icofont icofont-close-line-circled"></i>
+                                              </button>
+                                              <strong>Success!</strong> '.$_SESSION['add_success'].'
+                                            </div>';
+
+                                            unset($_SESSION['add_success']);
+                                  }
+                                  if(isset($_SESSION['add_error'])) {
+                                      echo '<div class="alert alert-danger" id="alert_msg_id">
+                                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <i class="icofont icofont-close-line-circled"></i>
+                                              </button>
+                                              <strong>Success!</strong> '.$_SESSION['add_error'].'
+                                            </div>';
+
+                                            unset($_SESSION['add_error']);
+                                  }
+                          ?>
+                        </div>
                         <div class="col-xl-3 col-md-6">
                           <div class="card bg-c-yellow update-card">
                             <div class="card-block">

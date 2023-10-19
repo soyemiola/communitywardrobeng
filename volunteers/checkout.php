@@ -5,7 +5,7 @@
 
   $a = new Volunteers();
 
-  $recipients = $a->recipients();
+  $recipients = $a->recipients($status='checkin');
 
 
 ?>

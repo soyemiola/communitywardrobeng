@@ -4,7 +4,7 @@
               <a class="mobile-menu" id="mobile-collapse" href="#!">
               <i class="feather icon-menu"></i>
               </a>
-              <a href="index.html" class="text-center">
+              <a href="../index.php" class="text-center">
               <img class="img-fluid" src="files/assets/images/logo.png" alt="logo image" />
               </a>
               <a class="mobile-options">
@@ -37,10 +37,14 @@
                       <?php 
                         if ($_SESSION['accesslevel'] == 1) {
                           ?>
-
                           <li>
-                            <a href="#">
+                            <a href="javascript:void(0)" data-target="#adduser" data-toggle="modal">
                             <i class="feather icon-user"></i> Add new account
+                            </a>
+                          </li>
+                          <li>
+                            <a href="users.php">
+                            <i class="feather icon-users"></i> Users list
                             </a>
                           </li>
 

@@ -61,7 +61,6 @@
                   <div class="page-wrapper">
                     <div class="page-body">
                       <div class="card">
-
                         <div class="card-header">
                           <h5>Recipients Record</h5>
                           <div class="card-header-right">
@@ -70,8 +69,18 @@
                               </ul>
                             </div>
                         </div>
-                        <div class="card-block">
+                        <div class="card-block">                          
                           <?php 
+                            if(isset($_SESSION['recipient_checkin'])) {
+                                  echo '<div class="alert alert-success" id="alert_msg_id">
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <i class="icofont icofont-close-line-circled"></i>
+                                          </button>
+                                          <strong>Success!</strong> '.$_SESSION['recipient_checkin'].'
+                                        </div>';
+
+                                  unset($_SESSION['recipient_checkin']);
+                              }
 
                             if ($details->num_rows == 1) {
                               ?>
@@ -152,15 +161,42 @@
                                     <h6>Shopping address: <b class="rep"><?php echo $value['appointment_address'] ?></b></h6>
                                   </div>
                                   <div class="dtx p-2 mb-2">
-                                    <h6>Status: <span class="badge badge-primary rep">Registered</span></h6>
+                                    <?php 
+                                    if ($value['checkin'] == null || $value['checkin'] == '') {
+                                      echo '<h6>Status: <span class="badge badge-primary rep">Registered</span></h6>';
+                                    }else if ($value['checkin'] == 'checkin'){
+                                      echo '<h6>Status: <span class="badge badge-primary rep">Checked in</span></h6>';
+                                    }else{
+                                      echo '<h6>Status: <span class="badge badge-primary rep">Checked out</span></h6>';
+                                    }
+
+                                    ?>
+                                    
                                     
                                   </div>
                                 </div>
 
                                 <div class="col-12">
-                                  <a href="checkout-details.php?checkoutID=<?php echo base64_encode($value['id']) ?>" class="btn btn-primary btn-sm">
-                                    Checkout
+                                  <a href="recipients.php" class="btn btn-light btn-sm">
+                                    Back
                                   </a>
+                                  
+                                  <?php 
+                                    if ($value['checkin'] == null || $value['checkin'] == '') {
+                                    ?>
+                                    <a href="checkin.php?recipient_ref_id=<?php echo base64_encode($value['id']) ?>" class="btn btn-primary btn-sm">
+                                      Check-in
+                                    </a>
+
+                                    <?php
+                                    }else{
+                                      ?>
+                                      <a href="checkout-details.php?checkoutID=<?php echo base64_encode($value['id']) ?>" class="btn btn-primary btn-sm">
+                                        Checkout
+                                      </a>
+                                      <?php
+                                    }
+                                  ?>  
                                 </div>
                                 <?php
                               }

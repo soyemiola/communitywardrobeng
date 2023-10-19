@@ -62,6 +62,7 @@
                                         <th>Email</th>
                                         <th>Gender</th>
                                         <th>Purpose of Application</th>
+                                        <th>Check-in/out status</th>
                                         <th></th>
                                       </tr>
                                     </thead>
@@ -76,6 +77,18 @@
                                             <td><?php echo $value['email']; ?></td>
                                             <td><?php echo $value['gender']; ?></td>
                                             <td><?php echo $value['purpose_of_application']; ?></td>
+                                            <td>
+                                              <?php 
+                                                if ($value['checkin'] != Null ) {
+                                                  echo '<span class="badge badge-primary">checkin</span>';
+                                                }
+
+                                                if ($value['checkout'] != Null ) {
+                                                  echo '<span class="badge badge-primary">checkout</span>';
+                                                }
+                                              ?>
+                                              
+                                            </td>
                                             <td>
                                                   <a href="record-details.php?id=<?php echo base64_encode($value['id']) ?>" class="btn btn-sm btn-primary"><i class="feather icon-folder"></i></a>
                                             </td>

@@ -1,4 +1,6 @@
 <?php 
+  session_start();
+  
   $contact = 'current-menu-item';
   $about = '';
   $donation = '';
@@ -68,12 +70,38 @@
             </div>
           </div>
           <div class="col-12 col-lg-7">
-            <form class="contact-form">
-              <input type="text" placeholder="Name">
-              <input type="email" placeholder="Email">
-              <textarea rows="15" cols="6" placeholder="Messages"></textarea>
+            
+            <form class="contact-form" method="post" action="assets/php/contact_submission.php">
+              <?php 
+                if(isset($_SESSION['success_message'])) {
+                  echo '<div class="alert alert-success" id="alert_msg_id">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="icofont icofont-close-line-circled"></i>
+                          </button>
+                          <strong>Success!</strong> '.$_SESSION['success_message'].'
+                        </div>';
+
+                        unset($_SESSION['success_message']);
+                }
+
+                if(isset($_SESSION['error_message'])) {
+                  echo '<div class="alert alert-danger" id="alert_msg_id">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="icofont icofont-close-line-circled"></i>
+                          </button>
+                          <strong>Success!</strong> '.$_SESSION['error_message'].'
+                        </div>';
+
+                        unset($_SESSION['error_message']);
+                }
+
+              ?>
+              <input type="hidden" name="robot">
+              <input type="text" name="name" placeholder="Name">
+              <input type="email" name="email" placeholder="Email">
+              <textarea rows="15" cols="6" name="message" placeholder="Messages"></textarea>
               <span>
-              <input class="btn gradient-bg" type="button" value="Contact us">
+              <input class="btn gradient-bg" type="submit" value="Contact us">
               </span>
             </form>
           </div>

@@ -2,10 +2,11 @@
 	// db connection
 	include 'conn.php';
 	
+	$sendgridApiKey = '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';
 
 	class ApplicationForm
 	{
-		
+
 		function __construct()
 		{
 			
@@ -156,7 +157,7 @@
 	                ],
                 ],
                 'from' => ['email' => 'info@soastechnology.com.ng'],
-                'template_id' => 'd-f0bc3b55a8a74804863aa2e43cf87e36 ',
+                'template_id' => 'd-f0bc3b55a8a74804863aa2e43cf87e36',
             ];
                     
             $ch = curl_init('https://api.sendgrid.com/v3/mail/send');
@@ -217,6 +218,60 @@
 				return False;
 			}
 		}
+	}
+
+
+	/**
+	 * 
+	 */
+	class Contact
+	{
+		
+		function save_contact_info($date, $name, $email, $message)
+		{
+			global $conn;
+
+			$stmt = $conn->prepare("INSERT INTO contacts(date, name, email, message)VALUES(?,?,?,?)");
+			$stmt->bind_param('ssss', $date, $name, $email, $message);
+
+			if ($stmt->execute()) {
+				return True;
+			}
+		}
+
+		function sendMail($date, $name, $email, $message){
+			$data = [
+				'personalizations' => [
+	                [
+	                	'to' => [
+	                    	['email' => 'info@communitywardrobeng.org']
+	                 	],
+	                    'dynamic_template_data' => [
+		                    'date' => $date,
+		                    'name' => $name,
+		                    'email' => $email,
+		                    'message' => $message
+	                    ],
+	                ],
+                ],
+                'from' => ['email' => 'info@soastechnology.com.ng'],
+                'template_id' => 'd-e9125e0867b04c4ea0d8e9d1b7903874',
+            ];
+                    
+            $ch = curl_init('https://api.sendgrid.com/v3/mail/send');
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+			curl_setopt($ch, CURLOPT_HTTPHEADER, [
+				'Authorization: Bearer ' . $sendgridApiKey,
+				'Content-Type: application/json',
+			]);
+                    
+			$result = curl_exec($ch);
+			curl_close($ch);                    
+                    
+		}
+
+
 	}
 
 ?>

@@ -11,13 +11,32 @@
 	{
 		
 		// fetch recipient list
-		function recipients(){
+		function recipients($status=null){
 			global $conn;
 
-			$statement = "SELECT * FROM recipients";
+			if ($status) {
+				$statement = "SELECT * FROM recipients WHERE checkin='$status'";
+			}else{
+				$statement = "SELECT * FROM recipients";
+			}
+			
 			$record = $conn->query($statement);
 
 			return $record;
+		}
+
+		// check in recipient
+		function check_in_recipient($id){
+			global $conn;
+
+			$checkin = 'checkin';
+
+			$statement = "UPDATE recipients SET checkin='$checkin' WHERE id='$id'";
+			$ck = $conn->query($statement);
+
+			if($ck){
+				return True;
+			}
 		}
 
 		
@@ -118,6 +137,77 @@
 	 */
 	class Community
 	{
+
+		function fetch_all_user_volunteer(){
+			global $conn;
+
+			$action = $conn->query("SELECT * FROM users");
+
+			if ($action) {
+				return $action;
+			}
+		}
+
+		function add_volunteer_user($name, $email, $password, $accesslevel){
+			global $conn;
+
+			$status = 1;
+
+			$statement = "INSERT INTO users(name, email, password, accesslevel, status)VALUES(?,?,?,?,?)";
+			$in = $conn->prepare($statement);
+			$in->bind_param('sssss', $name, $email, $password, $accesslevel, $status);
+
+			if ($in->execute()) {
+				return True;
+			}
+		}
+
+		function disable_volunteer_user($id){
+			global $conn;
+
+			$status = 0;
+
+			$statement = $conn->query("UPDATE users SET status='$status' WHERE id='$id'");
+
+			if($statement){
+				return True;
+			}
+		}
+
+		function fetch_user_volunteer($id){
+			global $conn;
+
+			$action = $conn->query("SELECT * FROM users WHERE id='$id'");
+
+			if ($action) {
+				return $action;
+			}
+		}
+
+		function update_volunteer_user($id, $name, $email, $password, $accesslevel){
+			global $conn;
+
+			$status = 0;
+
+			$statement = $conn->query("UPDATE users SET name='$name', email='$email', $password='$password', accesslevel='$accesslevel', status='$status' WHERE id='$id'");
+
+			if($statement){
+				return True;
+			}
+		}
+
+
+		function delete_user_volunteer($id){
+			global $conn;
+
+			$action = $conn->query("DELETE FROM users WHERE id='$id'");
+
+			if ($action) {
+				return True;
+			}
+		}
+
+
 		function authenticate($email, $password){
 			global $conn;
 
