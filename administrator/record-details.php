@@ -76,7 +76,7 @@
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                           <i class="icofont icofont-close-line-circled"></i>
                                           </button>
-                                          <strong>Success!</strong> '.$_SESSION['recipient_checkin'].'
+                                          <strong>Notification!</strong> '.$_SESSION['recipient_checkin'].'
                                         </div>';
 
                                   unset($_SESSION['recipient_checkin']);

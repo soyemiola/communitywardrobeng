@@ -48,7 +48,7 @@
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                           <i class="icofont icofont-close-line-circled"></i>
                                           </button>
-                                          <strong>Success!</strong> '.$_SESSION['del_success'].'
+                                          <strong>Notification!</strong> '.$_SESSION['del_success'].'
                                         </div>';
 
                                   unset($_SESSION['del_success']);
@@ -58,7 +58,7 @@
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                           <i class="icofont icofont-close-line-circled"></i>
                                           </button>
-                                          <strong>Success!</strong> '.$_SESSION['del_error'].'
+                                          <strong>Notification!</strong> '.$_SESSION['del_error'].'
                                         </div>';
 
                                   unset($_SESSION['del_error']);

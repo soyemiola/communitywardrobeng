@@ -51,7 +51,7 @@
                                               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <i class="icofont icofont-close-line-circled"></i>
                                               </button>
-                                              <strong>Success!</strong> '.$_SESSION['add_success'].'
+                                              <strong>Notification!</strong> '.$_SESSION['add_success'].'
                                             </div>';
 
                                             unset($_SESSION['add_success']);
@@ -61,7 +61,7 @@
                                               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <i class="icofont icofont-close-line-circled"></i>
                                               </button>
-                                              <strong>Success!</strong> '.$_SESSION['add_error'].'
+                                              <strong>Notification!</strong> '.$_SESSION['add_error'].'
                                             </div>';
 
                                             unset($_SESSION['add_error']);
@@ -131,8 +131,8 @@
                               </div>
                             </div>
                             <div class="card-footer">
-                              <?php 
-                                      if ($total_volunteers_form->num_rows == 1) {
+                              <?php
+                                  if ($total_volunteers_form->num_rows == 1) {
                                         foreach ($total_volunteers_form as $key => $vf) {
                                           echo '<a href="volunteers.php" class="text-white">'. $vf['count'].' submitted forms</a>';
                                         }

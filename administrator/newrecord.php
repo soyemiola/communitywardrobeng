@@ -141,7 +141,7 @@
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                           <i class="icofont icofont-close-line-circled"></i>
                                           </button>
-                                          <strong>Success!</strong> '.$_SESSION['success_message'].'
+                                          <strong>Notification!</strong> '.$_SESSION['success_message'].'
                                         </div>';
 
                                   unset($_SESSION['success_message']);
@@ -151,7 +151,7 @@
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                           <i class="icofont icofont-close-line-circled"></i>
                                           </button>
-                                          <strong>Success!</strong> '.$_SESSION['failed_message'].'
+                                          <strong>Notification!</strong> '.$_SESSION['failed_message'].'
                                         </div>';
                                         
                                   unset($_SESSION['failed_message']); 

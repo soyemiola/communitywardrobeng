@@ -256,7 +256,7 @@
 
 			$status = 0;
 
-			$statement = 'SELECT count(*) as count FROM volunteers_registration WHERE status="$status"';
+			$statement = 'SELECT * FROM volunteers_registration WHERE status="$status"';
 			$record = $conn->query($statement);
 
 			return $record;

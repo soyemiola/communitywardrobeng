@@ -78,7 +78,7 @@
                               <div class="row" id="alert_msg_id">
                                 <div class="col-12">
                                   <div class="alert alert-success">
-                                    <strong>'.$_SESSION['volunteer_activated'].'</strong>
+                                    <strong>Notification! </strong> '.$_SESSION['volunteer_activated'].'
                                   </div>
                                 </div>
                               </div>
@@ -91,7 +91,7 @@
                               <div class="row" id="alert_msg_id">
                                 <div class="col-12">
                                   <div class="alert alert-success">
-                                    <strong>'.$_SESSION['volunteer_deactivated'].'</strong>
+                                    <strong>Notification! </strong>'.$_SESSION['volunteer_deactivated'].'
                                   </div>
                                 </div>
                               </div>
