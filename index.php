@@ -267,7 +267,7 @@
 								<h2 class="entry-title">Donate to Cause</h2>
 							</div>
 							<div class="cause-wrap d-flex flex-wrap justify-content-between">
-								<figure class="m-0">
+								<figure class="m-0" id="donate">
 									<img src="images/donate-causes.jpg" alt>
 								</figure>
 								<div class="cause-content-wrap">

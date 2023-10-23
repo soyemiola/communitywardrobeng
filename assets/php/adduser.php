@@ -23,7 +23,7 @@
 			$_SESSION['add_error'] = "Process failed";
 		}
 
-		header("Location: ../../volunteers/users.php");
+		header("Location: ../../administrator/users.php");
 		exit();
 	}
 

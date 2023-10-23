@@ -20,7 +20,7 @@
         	$_SESSION['failed_message'] = "Process failed";
         }
 
-        header("Location: ../../volunteers/add-accessories.php");
+        header("Location: ../../administrator/add-accessories.php");
 		exit();
 
 
@@ -40,7 +40,7 @@
         	$_SESSION['failed_message'] = "Process failed";
         }
 
-        header("Location: ../../volunteers/edit-accessories.php");
+        header("Location: ../../administrator/edit-accessories.php");
 		exit();
 
 

@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['check_way_yes'] && empty($_
                                 }
                                 
 
-                                header("Location: ../../volunteers/checkout-details.php?checkoutID=".base64_encode($id));
+                                header("Location: ../../administrator/checkout-details.php?checkoutID=".base64_encode($id));
                             exit();
 
                             }

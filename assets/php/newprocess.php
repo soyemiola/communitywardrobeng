@@ -21,7 +21,7 @@
 		// check if number already exist!
 		if($num_chk->num_rows == 1){
 			$_SESSION['number_exit'] = "Number already exist";
-			header("Location: ../../volunteers/newrecord.php");
+			header("Location: ../../administrator/newrecord.php");
 			exit();
 
 		}
@@ -34,7 +34,7 @@
 
 			if ($chk_email->num_rows == 1){
 				$_SESSION['email_exit'] = "Email already exist";
-				header("Location: ../../volunteers/newrecord.php");
+				header("Location: ../../administrator/newrecord.php");
 				exit();
 			}
 
@@ -73,7 +73,7 @@
 			$_SESSION['failed_message'] = "Process failed";
 		}
 
-		header("Location: ../../volunteers/newrecord.php");
+		header("Location: ../../administrator/newrecord.php");
 		exit();
 	}
 
@@ -92,17 +92,7 @@
         $id = htmlspecialchars(trim($_POST['checkout_id']));
         $accessories = json_encode($_POST['accessories']);
                                   
-        // $update = $f->save_checkout($id, $accessories);
-
-        // if ($update == True) {
-        // 	$_SESSION['success_message'] = "Checkout Completed!";
-        // }else{
-        // 	$_SESSION['failed_message'] = "Process failed";
-        // }
-        echo 'here.....';
-
-        // header("Location: ../../volunteers/checkout-details.php");
-		// exit();
+        // pass
 
     }
 
@@ -119,7 +109,7 @@
         	$_SESSION['failed_message'] = "Process failed";
         }
 
-        header("Location: ../../volunteers/add-accessories.php");
+        header("Location: ../../administrator/add-accessories.php");
 		exit();
 
     }

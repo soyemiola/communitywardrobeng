@@ -21,11 +21,11 @@
 				$_SESSION['accesslevel'] = $value['accesslevel'];
 			}
 
-			header("Location: ../../volunteers/index.php");
+			header("Location: ../../administrator/index.php");
 			exit();
 		}else{
 			$_SESSION['invalid-details'] = 'Invalid Credentials! Try Again';
-			header("Location: ../../volunteers/auth-login.php");
+			header("Location: ../../administrator/auth-login.php");
 			exit();
 		}
 	}

@@ -374,6 +374,14 @@ a:hover, a:active {
 }
 
 @media screen and (max-width: 992px){
+    .entry-header h1{
+        font-size: 40px !important;
+    }
+
+    .entry-header h4 {
+        font-size: 20px;
+    }
+
     .hero-content-overlay h1 {
         font-size: 48px;
     }
@@ -807,7 +815,12 @@ ul.tabs-nav .tab-nav.active {
     .home-page-welcome img {
         margin-bottom: 60px;
     }
+
+    figure#donate, .cause-wrap figure img{
+        display: none !important;
+    }
 }
+
 
 /*
 # Upcoming Events
