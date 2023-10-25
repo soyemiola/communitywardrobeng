@@ -51,7 +51,7 @@
                                 <thead>
                                   <tr>
                                     <th>Access code</th>
-                                    <th>Phone Number</th>
+                                    <th>Name / Number</th>
                                     <th>Email</th>
                                     <th>Gender</th>
                                     <th>Status</th>
@@ -65,7 +65,18 @@
                                       ?>
                                       <tr>
                                         <td><?php echo $value['access_code'] ?></td>
-                                        <td><?php echo $value['number'] ?></td>
+                                        <td>
+                                              <?php 
+                                                if (!empty($value['number'])) {
+                                                  echo $value['number'];
+                                                }else if (!empty($value['name'])) {
+                                                  echo $value['name'];
+                                                }{
+
+                                                }
+
+                                              ?>
+                                            </td>
                                         <td><?php echo $value['email'] ?></td>
                                         <td><?php echo $value['gender'] ?></td>
                                         <td>

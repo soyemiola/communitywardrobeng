@@ -1,5 +1,5 @@
 <?php 
-	// session_start();
+	session_start();
 
 	include 'assets/php/func.php';
 
@@ -8,6 +8,7 @@
 	$purpose = $getA->app_purpose();
 	$item_needed = $getA->items_needed();
 	$accessories = $getA->accessories();
+	$time_slot = $getA->application_time_slot();
 
 ?>
 <!DOCTYPE html>
@@ -45,17 +46,26 @@
 						<div class="text-center">
 							<h3 class="mt-4" style="color: #2A4E57">Recipient Application Form</h3>
 							<?php 
-								if (isset($_GET['status']) == 'IncEm' ) {
-									echo '<div class="alert alert-info">
-											<strong>Email address already exist!</strong>
-										</div>';
-								}
-								if (isset($_GET['stat']) == 'Inc' ) {
-									echo '<div class="alert alert-info">
-											<strong>Phone number already exist!</strong>
-										</div>';
-								}
+								if(isset($_SESSION['number-exit'])) {
+	                                echo '<div class="alert alert-success" id="alert_msg_id">
+	                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	                                          <i class="icofont icofont-close-line-circled"></i>
+	                                          </button>
+	                                          <strong>Notification!</strong> '.$_SESSION['number-exit'].'
+	                                        </div>';
 
+	                                  unset($_SESSION['number-exit']);
+	                            }
+	                            if(isset($_SESSION['email-exit'])) {
+	                                echo '<div class="alert alert-success" id="alert_msg_id">
+	                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	                                          <i class="icofont icofont-close-line-circled"></i>
+	                                          </button>
+	                                          <strong>Notification!</strong> '.$_SESSION['email-exit'].'
+	                                        </div>';
+
+	                                  unset($_SESSION['email-exit']);
+	                            }
 							?>
 							
 						</div>
@@ -107,6 +117,11 @@
 										<option value="Ojota Lagos">Ojota Lagos</option>
 										<option value="Lekki Lagos">Lekki Lagos</option>
 										<option value="Ajah Lagos">Ajah Lagos</option>
+										<option value="Ikoyi Lagos">Ikoyi Lagos</option>
+										<option value="Yaba Lagos">Yaba Lagos</option>
+										<option value="Victoria Island Lagos">Victoria Island Lagos</option>
+										<option value="Gbagada Lagos">Gbagada Lagos</option>
+										<option value="Abule-Egba Lagos">Abule-Egba Lagos</option>
 									</select>									
 									<input type="text" name="address_others" class="form-control shadow-none mt-1" placeholder="if other specify" value="">
 
@@ -238,17 +253,18 @@
 							<div class="boxx">
 								<h6>Time Slot Preference</h6>
 								<div class="form-group">
-									<input type="radio" name="time_slot" id="tm_slot1" value="12noon - 1pm">
-									<label class="radio" for="tm_slot1">12noon - 1pm</label>
+									<?php 
+										if ($time_slot->num_rows > 0) {
+											foreach ($time_slot as $key => $slot) {
+												if ($slot['out_slot'] != 0) {
+													echo '
+														<input type="radio" name="time_slot" id="tm_slot'.$slot["id"].'" value="'.$slot["time_frame"].'">
+														<label class="radio" for="tm_slot'.$slot["id"].'">'.$slot["time_frame"].'</label>';
+												}
+											}
+										}
 
-									<input type="radio" name="time_slot" id="tm_slot2" value="1pm - 2pm">
-									<label class="radio" for="tm_slot2">1pm - 2pm</label>
-
-									<input type="radio" name="time_slot" id="tm_slot3" value="2pm - 3pm">
-									<label class="radio" for="tm_slot3">2pm - 3pm</label>
-
-									<input type="radio" name="time_slot" id="tm_slot4" value="3pm - 4pm">
-									<label class="radio" for="tm_slot4">3pm - 4pm</label>
+									?>
 
 								</div>
 							</div>

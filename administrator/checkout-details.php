@@ -14,6 +14,7 @@
     $details = $f->appointment_slip($id);
 
     $a = $f->accessories();
+    $i = $f->items_needed();
 
   }else{
 
@@ -110,20 +111,44 @@
                                 <div class="col-xs-12 col-md-5 boxx">
                                   <h5 class="p-2 m-2">Checkout details</h5>
                                   <div class="dtx p-2 mb-2">
-                                    <h6>Phone Number: <b class="rep"><?php echo $value['number'] ?></b></h6>
+                                    <h6>Access Code: <b class="rep"><?php echo $value['access_code'] ?></b></h6>
                                   </div>
+                                  <?php 
+                                    if (!empty($value['number'])) {
+                                      ?>
+                                      <div class="dtx p-2 mb-2">
+                                        <h6>Phone Number: <b class="rep"><?php echo $value['number'] ?></b></h6>
+                                      </div>
+                                      <?php
+                                    }
+                                  ?>
                                   <div class="dtx p-2 mb-2">
                                     <h6>Gender: <b class="rep"><?php echo $value['gender'] ?></b></h6>
                                   </div>
-                                  <div class="dtx p-2 mb-2">
-                                    <h6>Email: <b class="rep"><?php echo $value['email'] ?></b></h6>
-                                  </div>
+                                  <?php 
+                                    if (!empty($value['email'])) {
+                                      ?>
+                                      <div class="dtx p-2 mb-2">
+                                        <h6>Email: <b class="rep"><?php echo $value['email'] ?></b></h6>
+                                      </div>
+                                      <?php
+                                    }
+                                  ?>
+                                  <?php 
+                                    if (!empty($value['name'])) {
+                                      ?>
+                                      <div class="dtx p-2 mb-2">
+                                        <h6>Name: <b class="rep"><?php echo $value['name'] ?></b></h6>
+                                      </div>
+                                      <?php
+                                    }
+                                  ?>
                                   <div class="dtx p-2 mb-2">
                                     <h6>Items Needed:</h6>
                                     <?php 
                                       $items = json_decode($value['item_needed'] , true);
                                       foreach ($items as $key => $item) {
-                                        echo '<span class="badge badge-primary mr-1">'. $item .'</span>';
+                                        echo '<span class="badge badge-primary mr-1" style="font-weight: normal">'. $item .'</span>';
                                       }
 
                                       if (!empty($value['item_needed_others'])) {
@@ -138,7 +163,7 @@
                                     <?php 
                                       $accessories = json_decode($value['accessories'] , true);
                                       foreach ($accessories as $key => $item) {
-                                        echo '<span class="badge badge-primary mr-1">'. $item .'</span>';
+                                        echo '<span class="badge badge-primary mr-1" style="font-weight: normal">'. $item .'</span>';
                                       }
 
                                       if (!empty($value['accessories_others'])) {
@@ -148,14 +173,13 @@
                                       }
                                     ?>
                                   </div>
+                                  
                                   <div class="dtx p-2 mb-2">
-                                    <h6>Access Code: <b class="rep"><?php echo $value['access_code'] ?></b></h6>
+                                    <h6>Appointment batch: <b class="rep"><?php echo $value['stream'] ?></b></h6>
                                   </div>
                                   <div class="dtx p-2 mb-2">
-                                    <h6>Appointment batch:: <b class="rep"><?php echo $value['stream'] ?></b></h6>
-                                  </div>
-                                  <div class="dtx p-2 mb-2">
-                                    <h6>Shopping address: <b class="rep"><?php echo $value['appointment_address'] ?></b></h6>
+                                    <h6>Shopping address:</h6>
+                                    <b class="mt-2"><?php echo $value['appointment_address'] ?></b>
                                   </div>
                                   <div class="dtx p-2 mb-2">
                                     <h6>Status: 
@@ -175,11 +199,20 @@
                                       ?>
                                       <hr>
                                     <div class="p-2 mb-2">
-                                      <h6>Take Home Accessories</h6>
+                                      <h6>Shopping materials:</h6>
+                                      <header>Items</header>
                                       <?php 
                                         $items = json_decode($value['checkout_item'] , true);
                                         foreach ($items as $key => $item) {
-                                          echo '<span class="badge badge-light mr-1">'. $item .'</span>';
+                                          print_r('<span class="badge badge-primary mr-1" style="font-weight: normal">'. $item[0] .' ('. $item[1] .') </span>');
+                                        }
+                                      ?>
+                                      <br><br>
+                                      <header>Accessories</header>
+                                      <?php 
+                                        $items = json_decode($value['checkout_accessories'] , true);
+                                        foreach ($items as $key => $acc) {
+                                          print_r('<span class="badge badge-primary mr-1" style="font-weight: normal">'. $acc[0] .' ('. $acc[1] .') </span>');
                                         }
                                       ?>
                                     </div>
@@ -189,56 +222,93 @@
                                   
                                 </div>
                                 <div class="col-xs-12 col-md-7 boxx">
-                                  <h5 class="p-2 m-2">Accessories recieved</h5>
+                                  <h5 class="p-2 m-2">Items recieved</h5>
                                   <?php  
                                   ?>
                                   <div class="dtx p-2 mb-2">
-                                    <table id="item" class="table nowrap">
-                                    <thead>
-                                      <tr>
-                                        <th>Accessories list</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      
-                                      <?php 
-                                      if ($a->num_rows > 0) {
-                                        foreach ($a as $key => $a_value) {
-                                          if ($value['checkout_item'] != NULL) {
-                                            $ac = json_decode($value['checkout_item']);
+                                    <ul class="nav nav-tabs">
+                                      <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#items">Items</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#accessories">Accessories</a>
+                                      </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                      <div class="tab-pane container p-3 active" id="items">
+                                        <table id="" class="item table nowrap">
+                                          <thead>
+                                            <tr>
+                                              <th>Name</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            
+                                            <?php 
+                                            if ($i->num_rows > 0) {
+                                              foreach ($i as $key => $a_value) {
+                                                
+                                                ?>
+                                                <tr>
+                                                  <td style="width: 100%;">
+                                                    
+                                                    <label for="myCheckbox_items<?php echo $a_value['id'] ?>" class="checkbox" name="items">
+                                                    <input class="checkbox__input" type="checkbox" id="myCheckbox_items<?php echo $a_value['id'] ?>" name="items[]" value="<?php echo $a_value['name'] ?>" form="checkout-list" 
+                                                     onchange="checkbox_selected('myCheckbox_items<?php echo $a_value["id"] ?>', 'myCheckbox_item_count_<?php echo $a_value["id"] ?>')">
 
-                                            if (count($ac) > 0) {
-                                              if (in_array($a_value['name'], $ac)) {
-                                                $check_button = 'checked';
-                                              }else{
-                                                $check_button = '';
+                                                    <span class="checkbox__label"><?php echo $a_value['name'] ?></span>
+                                                  </label>
+                                                  <input type="text" name="i_count[]" id="myCheckbox_item_count_<?php echo $a_value['id'] ?>" placeholder="count" form="checkout-list" style="display: none; float: right; width: 100px !important;">
+                                                  </td>
+                                                </tr>
+                                                
+                                                <?php
                                               }
+                                              ?>
+                                              <?php
                                             }
-                                          }else{
-                                            $check_button = '';
-                                          }
-                                          
                                           ?>
-                                          <tr>
-                                            <td>
-                                              
-                                              <label for="myCheckbox_accessories_<?php echo $a_value['id'] ?>" class="checkbox" name="accessories" value="belts">
-                                              <input class="checkbox__input" type="checkbox" id="myCheckbox_accessories_<?php echo $a_value['id'] ?>" name="accessories[]" value="<?php echo $a_value['name'] ?>" form="checkout-list" 
-                                              <?php echo $check_button ?>>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <div class="tab-pane container fade pt-3" id="accessories">
+                                        <table id="" class="item table nowrap">
+                                          <thead>
+                                            <tr>
+                                              <th>Name</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            
+                                            <?php 
+                                            if ($a->num_rows > 0) {
+                                              foreach ($a as $key => $a_value) {
+                                                
+                                                ?>
+                                                <tr>
+                                                  <td style="width: 100%;">
+                                                    
+                                                    <label for="myCheckbox_accessories<?php echo $a_value['id'] ?>" class="checkbox" name="items">
+                                                    <input class="checkbox__input" type="checkbox" id="myCheckbox_accessories<?php echo $a_value['id'] ?>" name="accessories[]" value="<?php echo $a_value['name'] ?>" form="checkout-list" 
+                                                     onchange="checkbox_selected('myCheckbox_accessories<?php echo $a_value["id"] ?>', 'myCheckbox_accessories_count_<?php echo $a_value["id"] ?>')">
 
-                                              <span class="checkbox__label"><?php echo $a_value['name'] ?></span>
-                                            </label>
-                                            </td>
-                                          </tr>
-                                          
-                                          <?php
-                                        }
-                                        ?>
-                                        <?php
-                                      }
-                                    ?>
-                                    </tbody>
-                                  </table>
+                                                    <span class="checkbox__label"><?php echo $a_value['name'] ?></span>
+                                                  </label>
+                                                  <input type="text" name="a_count[]" id="myCheckbox_accessories_count_<?php echo $a_value['id'] ?>" placeholder="count" form="checkout-list" style="display: none; float: right; width: 100px !important;">
+                                                  </td>
+                                                </tr>
+                                                
+                                                <?php
+                                              }
+                                              ?>
+                                              <?php
+                                            }
+                                          ?>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                    
                                   </div>
                                 </div>
 
@@ -282,7 +352,28 @@
 
     <?php include 'footer.php'; ?>
   <script type="text/javascript">
-    $('#item').dataTable({
+    const checkbox_selected = (id, count) =>{
+      var chk = document.getElementById(id);
+      var isChecked = chk.checked;
+      
+      if (isChecked) {
+          document.getElementById(count).style.display = 'block';
+      } else {
+          document.getElementById(count).style.display = 'none';
+        }
+    }
+
+    // document.getElementById('myCheckbox').addEventListener('click', function() {
+    //   var isChecked = this.checked;
+    //   if (isChecked) {
+    //     alert('Checkbox is checked');
+    //   } else {
+    //     alert('Checkbox is not checked');
+    //   }
+    // });
+
+
+    $('.item').dataTable({
       "bPaginate": false
   });
   </script>

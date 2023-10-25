@@ -52,7 +52,7 @@
                               <table id="simpletable" class="table table-striped table-bordered nowrap">
                                 <thead>
                                   <tr>
-                                    <th>Item</th>
+                                    <th>Name</th>
                                     <th>Counts</th>
                                     <th></th>
                                   </tr>

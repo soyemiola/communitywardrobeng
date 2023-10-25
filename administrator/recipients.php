@@ -51,28 +51,62 @@
                             </div>
                           </div>
                           <div class="card-block">
+                            <?php 
+                              if(isset($_SESSION['del_success'])) {
+                                  echo '<div class="alert alert-success" id="alert_msg_id">
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <i class="icofont icofont-close-line-circled"></i>
+                                          </button>
+                                          <strong>Notification!</strong> '.$_SESSION['del_success'].'
+                                        </div>';
+
+                                  unset($_SESSION['del_success']);
+                              }
+                              
+                              if(isset($_SESSION['del_error'])) {
+                                  echo '<div class="alert alert-danger" id="alert_msg_id">
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <i class="icofont icofont-close-line-circled"></i>
+                                          </button>
+                                          <strong>Notification!</strong> '.$_SESSION['del_error'].'
+                                        </div>';
+                                        
+                                  unset($_SESSION['del_error']); 
+                              }
+                            ?>
                             <div class="dt-responsive table-responsive">
-                              <?php 
-                                if ($recipients->num_rows > 0) {
-                                  ?>
                                   <table id="simpletable" class="table table-striped table-bordered nowrap">
                                     <thead>
                                       <tr>
-                                        <th>Phone Number</th>
+                                        <th>Access code</th>
+                                        <th>Name / Number</th>
                                         <th>Email</th>
                                         <th>Gender</th>
-                                        <th>Purpose of Application</th>
-                                        <th>Check-in/out status</th>
+                                        <th>Purpose</th>
+                                        <th>Status</th>
                                         <th></th>
                                       </tr>
                                     </thead>
                                     <tbody>
+                              <?php 
+                                if ($recipients->num_rows > 0) {
+                                  ?>
                                       <?php 
                                         foreach ($recipients as $key => $value) {
                                           ?>
                                           <tr>
+                                            <td><?php echo $value['access_code']; ?></td>
                                             <td>
-                                              <?php echo $value['number']; ?>
+                                              <?php 
+                                                if (!empty($value['number'])) {
+                                                  echo $value['number'];
+                                                }else if (!empty($value['name'])) {
+                                                  echo $value['name'];
+                                                }{
+
+                                                }
+
+                                              ?>
                                             </td>
                                             <td><?php echo $value['email']; ?></td>
                                             <td><?php echo $value['gender']; ?></td>
@@ -91,6 +125,7 @@
                                             </td>
                                             <td>
                                                   <a href="record-details.php?id=<?php echo base64_encode($value['id']) ?>" class="btn btn-sm btn-primary"><i class="feather icon-folder"></i></a>
+                                                  <a href="remove-recipient.php?id=<?php echo base64_encode($value['id']) ?>" class="btn btn-sm btn-danger"><i class="feather icon-trash"></i></a>
                                             </td>
                                           </tr>
 
@@ -98,11 +133,11 @@
                                         }
 
                                       ?>
-                                    </tbody>
-                                  </table>
                                   <?php
                                 }
                               ?>
+                                    </tbody>
+                                  </table>
                               
                                   
                             </div>

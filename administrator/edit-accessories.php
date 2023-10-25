@@ -178,6 +178,7 @@
                                   <div class="form-group mt-3">
                                     <input type="hidden" name="robot">
                                     <input type="hidden" name="update" value="1">
+                                    <a href="accessories.php" class="btn btn-light btn-sm">Back</a>
                                     <button class="btn btn-primary btn-sm" type="submit">Update</button>
                                   </div>
                                 </div>

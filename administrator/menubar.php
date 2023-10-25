@@ -32,14 +32,14 @@
                   <li class="pcoded-hasmenu">
                     <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="feather icon-sidebar"></i></span>
-                    <span class="pcoded-mtext">Tools</span>
+                    <span class="pcoded-mtext">Wardrobe</span>
                     </a>
                     <ul class="pcoded-submenu">
-                      <!-- <li class=" ">
-                        <a href="#">
-                        <span class="pcoded-mtext">Purpose</span>
+                      <li class=" ">
+                        <a href="items.php">
+                        <span class="pcoded-mtext">Items</span>
                         </a>
-                      </li> -->
+                      </li>
                       <li class=" ">
                         <a href="accessories.php">
                         <span class="pcoded-mtext">Accessories</span>

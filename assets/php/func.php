@@ -2,7 +2,9 @@
 	// db connection
 	include 'conn.php';
 	
-	$sendgridApiKey = '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';
+	require __DIR__ . '\twilio-php-main\src\Twilio\autoload.php';
+
+	use Twilio\Rest\Client;
 
 	class ApplicationForm
 	{
@@ -33,14 +35,14 @@
 		}
 
 		// function to save registration form
-		function new_recipient($number, $email, $gender, $address, $purpose_of_application, $purpose_of_application_others, $item_needed, $item_needed_others, $shoe_size, $shoe_size_other, $cloth_size, $cloth_size_other, $accessories, $accessories_others, $date, $access_code, $stream, $appointment_date, $appointment_address, $address_other, $time_slot){
+		function new_recipient($number, $email, $name, $gender, $address, $purpose_of_application, $purpose_of_application_others, $item_needed, $item_needed_others, $shoe_size, $shoe_size_other, $cloth_size, $cloth_size_other, $accessories, $accessories_others, $date, $access_code, $stream, $appointment_date, $appointment_address, $address_other, $time_slot){
 			
 			global $conn;
 
-			$statement = $conn->prepare("INSERT INTO recipients(number, email, gender, address, purpose_of_application, purpose_of_application_others, item_needed, item_needed_others, shoe_size, shoe_size_other, cloth_size, cloth_size_other, accessories, accessories_others, date, access_code, stream, appointment_date, appointment_address,
-				address_other, time_slot) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			$statement = $conn->prepare("INSERT INTO recipients(number, email, name, gender, address, purpose_of_application, purpose_of_application_others, item_needed, item_needed_others, shoe_size, shoe_size_other, cloth_size, cloth_size_other, accessories, accessories_others, date, access_code, stream, appointment_date, appointment_address,
+				address_other, time_slot) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
-			$statement->bind_param('sssssssssssssssssssss', $number, $email, $gender, $address, $purpose_of_application, $purpose_of_application_others, $item_needed, $item_needed_others, $shoe_size, $shoe_size_other, $cloth_size, $cloth_size_other, $accessories, $accessories_others, $date, $access_code, $stream, $appointment_date, $appointment_address, $address_other, $time_slot);
+			$statement->bind_param('ssssssssssssssssssssss', $number, $email, $name, $gender, $address, $purpose_of_application, $purpose_of_application_others, $item_needed, $item_needed_others, $shoe_size, $shoe_size_other, $cloth_size, $cloth_size_other, $accessories, $accessories_others, $date, $access_code, $stream, $appointment_date, $appointment_address, $address_other, $time_slot);
 
 			if($statement->execute()){
 				return $statement->insert_id;
@@ -93,6 +95,17 @@
 			return $record;
 		}
 
+		// time slot
+		function application_time_slot(){
+			global $conn;
+
+			$statement = "SELECT * FROM application_stream";
+			$record = $conn->query($statement);
+
+			return $record;
+		}
+
+
 		// access code generate
 		function accesscode($length = 10) {
 		    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -107,7 +120,7 @@
 
 
 		// appointment stream
-		function application_stream(){
+		function application_stream($time_slot_selected){
 			global $conn;
 
 			$statement = "SELECT * FROM application_stream";
@@ -115,33 +128,63 @@
 
 			if ($record->num_rows > 0) {
 				foreach ($record as $key => $value) {
+					$stream_id = $value['id'];
 					$stream_name = $value['name'];
 					$stream_slot = $value['slot'];
-					$appointment_date = $value['date'];
-					$address = $value['address'];
+					$out_slot = $value['out_slot'];
+					$time_frame = $value['time_frame'];
 
-					$available_slot = $this->count_stream_slots($stream=$stream_name, $slot=$stream_slot);
-
-					if ($available_slot != 0) {
-						return array($stream_name, $appointment_date, $address);
+					if ($stream_name == 'stream 1') {
+						$s = 12;
+						$e = 1;
+					}else if ($stream_name == 'stream 2') {
+						$s = 1;
+						$e = 2;
+					}else if ($stream_name == 'stream 3') {
+						$s = 2;
+						$e = 3;
+					}else if ($stream_name == 'stream 4') {
+						$s = 3;
+						$e = 4;
 					}
+
+					if ($time_slot_selected === $time_frame) {
+						// check if slot is available 
+						$time_frame_dc = array("".$s.":00 noon to ".$s.":20pm",
+											"".$s.":20pm to ".$s.":40pm",
+											"".$s.":40pm to ".$e."pm");
+
+						$rnd = array_rand($time_frame_dc);
+						$time_allocated = $time_frame_dc[$rnd];
+
+						if ($out_slot != 0) {
+							// deduct 1 from out_slot time
+							$out_slot -= 1;
+							$update_slot_record = $this->update_slot_record($id=$stream_id, $new_record=$out_slot);
+						}
+
+						$shopping_date = "November 25, 2023";
+						$shopping_address = "Education Glasshouse, Faculty of Edu., UNILAG.";					
+
+						return array($stream_name, $shopping_date, $shopping_address, $time_allocated);
+					}
+					
 				}
 			}
 		}
 
 
-		function count_stream_slots($stream, $slot){
+		function update_slot_record($id, $new_record){
 			global $conn;
 
-			$statement = "SELECT count(*) as slot FROM recipients WHERE stream = '$stream'";
+			$statement = "UPDATE application_stream SET out_slot='$new_record' WHERE id='$id'";
 			$record = $conn->query($statement);
 
-			foreach ($record as $key => $value) {
-				return $slot - $value['slot'];
-			}
+			return True;
 		}
 
-		function sendMail($email, $access_code, $stream, $appointment_date, $appointment_address){
+		function sendMail($email, $access_code, $stream_name, $shopping_date, $shopping_address, $time_allocated){
+			$sendgridApiKey = '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';
 			$data = [
 				'personalizations' => [
 	                [
@@ -150,9 +193,10 @@
 	                 	],
 	                    'dynamic_template_data' => [
 		                    'access_code' => $access_code,
-		                    'stream' => $stream,
-		                    'appointment_date' => $appointment_date,
-		                    'appointment_address' => $appointment_address
+		                    'stream' => $stream_name,
+		                    'appointment_date' => $shopping_date,
+		                    'shopping_time' => $time_allocated,
+		                    'appointment_address' => $shopping_address
 	                    ],
 	                ],
                 ],
@@ -171,6 +215,23 @@
 			$result = curl_exec($ch);
 			curl_close($ch);                    
                     
+		}
+
+
+		function sendSMS($number, $msg){
+			$sid = 'AC0bebd766731d0711bbc4051db551f9db';
+			$token = 'e09213d3ddbd43abf560322bd6a20390';			
+
+			$twilio_number = "+12013457610";
+			$twilio = new Client($sid, $token);
+
+			$twilio->messages->create(
+									$number, // to
+						            array(
+								        'from' => $twilio_number,
+								        'body' => $msg
+								    )
+			                    );			
 		}
 	}
 
@@ -240,6 +301,7 @@
 		}
 
 		function sendMail($date, $name, $email, $message){
+			$sendgridApiKey = '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';
 			$data = [
 				'personalizations' => [
 	                [

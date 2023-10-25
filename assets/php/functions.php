@@ -25,6 +25,19 @@
 			return $record;
 		}
 
+		// remove recipients
+		function remove_recipient($id){
+			global $conn;
+
+			$sql = "DELETE FROM recipients WHERE id=?";
+			$stm = $conn->prepare($sql);
+			$stm->bind_param('s', $id);
+
+			if ($stm->execute()) {
+				return True;
+			}
+		}
+
 		// check in recipient
 		function check_in_recipient($id){
 			global $conn;
@@ -41,17 +54,20 @@
 
 		
 		// Update checklist
-		function save_checkout($id, $accessories){
+		function save_checkout($id, $item, $accessories){
 			global $conn; 
 
 			$check_status = 'checked';
 
-			$statement = "UPDATE recipients SET checkout_item='$accessories', checkout='$check_status' WHERE id='$id'";
+			$query = "UPDATE recipients SET checkout_item=?, checkout_accessories=?, checkout=? WHERE id=?";
+			$statement = $conn->prepare($query);
+			$statement->bind_param('ssss', $item, $accessories, $check_status, $id);
 
-			if($conn->query($statement) === TRUE){
+			if($statement->execute()){
 				return True;
 			}
 		}
+
 
 		// create accessories
 		function add_accessories($name, $count){
@@ -88,6 +104,68 @@
 				return True;
 			}
 		}
+
+		// delete accessories
+		function del_accessories($id){
+			global $conn; 
+
+			$statement = "DELETE accessories WHERE id='$id'";
+
+			if($conn->query($statement) === TRUE){
+				return True;
+			}
+		}
+
+
+
+		// create items
+		function add_item($name, $count){
+			global $conn;
+
+			$statement = $conn->prepare("INSERT INTO items_needed(name, counts) VALUES (?,?)");
+
+			$statement->bind_param('ss', $name, $count);
+
+			if($statement->execute()){
+				return True;
+			}else{
+				return False;
+			}
+		}
+
+		// select items
+		function edit_item($id){
+			global $conn;
+
+			$statement = "SELECT * FROM items_needed WHERE id='$id'";
+			$record = $conn->query($statement);
+
+			return $record;
+		}
+
+		// update items
+		function update_item($id, $name, $count){
+			global $conn; 
+
+			$statement = "UPDATE items_needed SET name='$name', counts='$count' WHERE id='$id'";
+
+			if($conn->query($statement) === TRUE){
+				return True;
+			}
+		}
+
+		// delete item
+		function del_item($id){
+			global $conn; 
+
+			$statement = "DELETE items_needed WHERE id='$id'";
+
+			if($conn->query($statement) === TRUE){
+				return True;
+			}
+		}
+
+
 
 		// fetch volunteers list
 		function volunteers_list(){

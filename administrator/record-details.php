@@ -102,12 +102,35 @@
                                         
                                       </b></h6>
                                   </div>
-                                  <div class="dtx p-2 mb-2">
-                                    <h6>Phone Number: <b class="rep"><?php echo $value['number'] ?></b></h6>
-                                  </div>
-                                  <div class="dtx p-2 mb-2">
-                                    <h6>Email: <b class="rep"><?php echo $value['email'] ?></b></h6>
-                                  </div>
+                                  <?php 
+                                    if (!empty($value['number'])) {
+                                      ?>
+                                      <div class="dtx p-2 mb-2">
+                                        <h6>Phone Number: <b class="rep"><?php echo $value['number'] ?></b></h6>
+                                      </div>
+                                      <?php
+                                    }
+                                  ?>
+                                  <?php 
+                                    if (!empty($value['email'])) {
+                                      ?>
+                                      <div class="dtx p-2 mb-2">
+                                        <h6>Email: <b class="rep"><?php echo $value['email'] ?></b></h6>
+                                      </div>
+                                      <?php
+                                    }
+                                  ?>
+                                  <?php 
+                                    if (!empty($value['name'])) {
+                                      ?>
+                                      <div class="dtx p-2 mb-2">
+                                        <h6>Name: <b class="rep"><?php echo $value['name'] ?></b></h6>
+                                      </div>
+                                      <?php
+                                    }
+                                  ?>
+                                  
+                                  
                                   <div class="dtx p-2 mb-2">
                                     <h6>Items Needed:</h6> 
                                     <?php 
@@ -155,7 +178,10 @@
                                     <h6>Appointment batch:: <b class="rep"><?php echo $value['stream'] ?></b></h6>
                                   </div>
                                   <div class="dtx p-2 mb-2">
-                                    <h6>Appointment details: <b class="rep"><?php echo $value['appointment_date'] ?></b></h6>
+                                    <h6>Shopping date: <b class="rep"><?php echo $value['appointment_date'] ?></b></h6>
+                                  </div>
+                                  <div class="dtx p-2 mb-2">
+                                    <h6>Shopping time: <b class="rep"><?php echo $value['time_slot'] ?></b></h6>
                                   </div>
                                   <div class="dtx p-2 mb-2">
                                     <h6>Shopping address: <b class="rep"><?php echo $value['appointment_address'] ?></b></h6>
