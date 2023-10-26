@@ -184,7 +184,7 @@
 		}
 
 		function sendMail($email, $access_code, $stream_name, $shopping_date, $shopping_address, $time_allocated){
-			$sendgridApiKey = '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';
+			$sendgridApiKey = '';
 			$data = [
 				'personalizations' => [
 	                [
@@ -305,7 +305,7 @@
 		}
 
 		function sendMail($date, $name, $email, $message){
-			$sendgridApiKey = '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';
+			$sendgridApiKey = '';
 			$data = [
 				'personalizations' => [
 	                [
