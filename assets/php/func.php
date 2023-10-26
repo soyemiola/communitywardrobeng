@@ -107,7 +107,7 @@
 
 
 		// access code generate
-		function accesscode($length = 10) {
+		function accesscode($length = 6) {
 		    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		    $randomString = '';
 
@@ -184,7 +184,7 @@
 		}
 
 		function sendMail($email, $access_code, $stream_name, $shopping_date, $shopping_address, $time_allocated){
-			$sendgridApiKey = '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';
+			$sendgridApiKey = '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';
 			$data = [
 				'personalizations' => [
 	                [
@@ -200,7 +200,7 @@
 	                    ],
 	                ],
                 ],
-                'from' => ['email' => 'info@soastechnology.com.ng'],
+                'from' => ['email' => 'info@communitywardrobeng.org'],
                 'template_id' => 'd-f0bc3b55a8a74804863aa2e43cf87e36',
             ];
                     
@@ -219,19 +219,23 @@
 
 
 		function sendSMS($number, $msg){
-			$sid = 'AC0bebd766731d0711bbc4051db551f9db';
-			$token = 'e09213d3ddbd43abf560322bd6a20390';			
+			$sid = '';
+			$token = '';			
 
 			$twilio_number = "+12013457610";
 			$twilio = new Client($sid, $token);
 
-			$twilio->messages->create(
+			try{
+                $twilio->messages->create(
 									$number, // to
 						            array(
 								        'from' => $twilio_number,
 								        'body' => $msg
 								    )
-			                    );			
+			                    );	
+            }catch (RestException $e){
+                // 
+            }		
 		}
 	}
 
@@ -301,7 +305,7 @@
 		}
 
 		function sendMail($date, $name, $email, $message){
-			$sendgridApiKey = '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';
+			$sendgridApiKey = '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';
 			$data = [
 				'personalizations' => [
 	                [

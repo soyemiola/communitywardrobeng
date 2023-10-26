@@ -1,7 +1,6 @@
 <?php 
-  include 'header.php';
-
   include '../assets/php/functions.php';
+  include 'header.php';
 
   $a = new Volunteers();
 
@@ -57,7 +56,7 @@
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                           <i class="icofont icofont-close-line-circled"></i>
                                           </button>
-                                          <strong>Notification!</strong> '.$_SESSION['del_success'].'
+                                          <strong>Alert!</strong> '.$_SESSION['del_success'].'
                                         </div>';
 
                                   unset($_SESSION['del_success']);
@@ -68,7 +67,7 @@
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                           <i class="icofont icofont-close-line-circled"></i>
                                           </button>
-                                          <strong>Notification!</strong> '.$_SESSION['del_error'].'
+                                          <strong>Alert!</strong> '.$_SESSION['del_error'].'
                                         </div>';
                                         
                                   unset($_SESSION['del_error']); 
@@ -113,12 +112,12 @@
                                             <td><?php echo $value['purpose_of_application']; ?></td>
                                             <td>
                                               <?php 
-                                                if ($value['checkin'] != Null ) {
-                                                  echo '<span class="badge badge-primary">checkin</span>';
+                                                if ($value['checkin'] != Null && $value['checkout'] == Null) {
+                                                  echo '<span class="badge badge-primary" style="font-weight: normal">checkin</span>';
                                                 }
 
-                                                if ($value['checkout'] != Null ) {
-                                                  echo '<span class="badge badge-primary">checkout</span>';
+                                                if ($value['checkin'] != Null && $value['checkout'] != Null) {
+                                                  echo '<span class="badge badge-primary" style="font-weight: normal">checkout</span>';
                                                 }
                                               ?>
                                               

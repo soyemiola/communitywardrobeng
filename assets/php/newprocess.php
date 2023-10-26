@@ -1,6 +1,4 @@
   <?php 
-	session_start();
-
 	include 'functions.php';
 
 	$f = new Volunteers();
@@ -145,16 +143,7 @@
 			return '+234'.$number ;
 		}
 	}
-
-
-	// if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['check_way_yes'] && empty($_POST['robot'])) {
-    //     $id = htmlspecialchars(trim($_POST['checkout_id']));
-    //     $accessories = json_encode($_POST['accessories']);
-                                  
-    //     // pass
-
-    // }
-
+	
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['accessories']) {
         $id = htmlspecialchars(trim($_POST['name']));

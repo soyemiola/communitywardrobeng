@@ -1,7 +1,5 @@
   <?php 
 	
-	session_start();
-
 	include '../assets/php/functions.php';
 
 	$v = new Community();

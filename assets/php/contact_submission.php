@@ -1,6 +1,4 @@
 <?php 
-	session_start();
-
 	include 'func.php';
 
 	$f = new Contact();

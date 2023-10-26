@@ -1,7 +1,6 @@
 <?php 
-  include 'header.php';
-
   include '../assets/php/functions.php';
+  include 'header.php';
 
   $getA = new Volunteers();
 
@@ -136,42 +135,42 @@
                           <div class="row">
                             <div class="col-xs-12 col-md-6">
                               <?php 
-                              // if(isset($_SESSION['success_message'])) {
-                              //     echo '<div class="alert alert-success" id="alert_msg_id">
-                              //             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                              //             <i class="icofont icofont-close-line-circled"></i>
-                              //             </button>
-                              //             <strong>Notification!</strong> '.$_SESSION['success_message'].'
-                              //           </div>';
+                              if(isset($_SESSION['success_message'])) {
+                                  echo '<div class="alert alert-success" id="alert_msg_id">
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <i class="icofont icofont-close-line-circled"></i>
+                                          </button>
+                                          <strong>Alert!</strong> '.$_SESSION['success_message'].'
+                                        </div>';
 
-                              //     unset($_SESSION['success_message']);
-                              // }
+                                  unset($_SESSION['success_message']);
+                              }
                               if(isset($_SESSION['failed_message'])) {
                                   echo '<div class="alert alert-danger" id="alert_msg_id">
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                           <i class="icofont icofont-close-line-circled"></i>
                                           </button>
-                                          <strong>Notification!</strong> '.$_SESSION['failed_message'].'
+                                          <strong>Alert!</strong> '.$_SESSION['failed_message'].'
                                         </div>';
                                         
                                   unset($_SESSION['failed_message']); 
                               }
                               if(isset($_SESSION['number_exit'])) {
-                                  echo '<div class="alert alert-danger" id="alert_msg_id">
+                                  echo '<div class="alert alert-info" id="alert_msg_id">
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                           <i class="icofont icofont-close-line-circled"></i>
                                           </button>
-                                          <strong>Success!</strong> '.$_SESSION['number_exit'].'
+                                          <strong>Alert!</strong> '.$_SESSION['number_exit'].'
                                         </div>';
                                         
                                   unset($_SESSION['number_exit']); 
                               }
                               if(isset($_SESSION['email_exit'])) {
-                                  echo '<div class="alert alert-danger" id="alert_msg_id">
+                                  echo '<div class="alert alert-info" id="alert_msg_id">
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                           <i class="icofont icofont-close-line-circled"></i>
                                           </button>
-                                          <strong>Success!</strong> '.$_SESSION['email_exit'].'
+                                          <strong>Alert!</strong> '.$_SESSION['email_exit'].'
                                         </div>';
                                         
                                   unset($_SESSION['email_exit']); 

@@ -1,6 +1,7 @@
 <?php 
+    session_start();
 
-	$servername = "localhost";
+	  $servername = "localhost";
     $username = "root";
     $password = "";
     $db = 'communitywardrobe';

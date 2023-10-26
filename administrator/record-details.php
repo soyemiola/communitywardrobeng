@@ -1,6 +1,6 @@
 <?php 
-  include 'header.php';
   include '../assets/php/func.php';
+  include 'header.php';
 
   $f = new ApplicationForm();
 
@@ -76,7 +76,7 @@
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                           <i class="icofont icofont-close-line-circled"></i>
                                           </button>
-                                          <strong>Notification!</strong> '.$_SESSION['recipient_checkin'].'
+                                          <strong>Alert!</strong> '.$_SESSION['recipient_checkin'].'
                                         </div>';
 
                                   unset($_SESSION['recipient_checkin']);
@@ -136,7 +136,7 @@
                                     <?php 
                                       $items = json_decode($value['item_needed'] , true);
                                       foreach ($items as $key => $item) {
-                                        echo '<span class="badge badge-primary mr-1">'. $item .'</span>';
+                                        echo '<span class="badge badge-primary mr-1" style="font-weight: normal">'. $item .'</span>';
                                       }
 
                                       if (!empty($value['item_needed_others'])) {
@@ -158,7 +158,7 @@
                                     <?php 
                                       $accessories = json_decode($value['accessories'] , true);
                                       foreach ($accessories as $key => $item) {
-                                        echo '<span class="badge badge-primary mr-1">'. $item .'</span>';
+                                        echo '<span class="badge badge-primary mr-1" style="font-weight: normal">'. $item .'</span>';
                                       }
 
                                       if (!empty($value['accessories_others'])) {
@@ -189,11 +189,11 @@
                                   <div class="dtx p-2 mb-2">
                                     <?php 
                                     if ($value['checkin'] == null || $value['checkin'] == '') {
-                                      echo '<h6>Status: <span class="badge badge-primary rep">Registered</span></h6>';
+                                      echo '<h6>Status: <span class="badge badge-primary rep" style="font-weight: normal">Registered</span></h6>';
                                     }else if ($value['checkin'] == 'checkin'){
-                                      echo '<h6>Status: <span class="badge badge-primary rep">Checked in</span></h6>';
+                                      echo '<h6>Status: <span class="badge badge-primary rep" style="font-weight: normal">Checked in</span></h6>';
                                     }else{
-                                      echo '<h6>Status: <span class="badge badge-primary rep">Checked out</span></h6>';
+                                      echo '<h6>Status: <span class="badge badge-primary rep" style="font-weight: normal">Checked out</span></h6>';
                                     }
 
                                     ?>

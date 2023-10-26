@@ -1,6 +1,6 @@
 <?php 
-  include 'header.php';
   include '../assets/php/functions.php';
+  include 'header.php';
 
   if (isset($_GET['idref'])) {    
 
@@ -78,7 +78,7 @@
                               <div class="row" id="alert_msg_id">
                                 <div class="col-12">
                                   <div class="alert alert-success">
-                                    <strong>Notification! </strong> '.$_SESSION['volunteer_activated'].'
+                                    <strong>Alert! </strong> '.$_SESSION['volunteer_activated'].'
                                   </div>
                                 </div>
                               </div>
@@ -91,7 +91,7 @@
                               <div class="row" id="alert_msg_id">
                                 <div class="col-12">
                                   <div class="alert alert-success">
-                                    <strong>Notification! </strong>'.$_SESSION['volunteer_deactivated'].'
+                                    <strong>Alert! </strong>'.$_SESSION['volunteer_deactivated'].'
                                   </div>
                                 </div>
                               </div>

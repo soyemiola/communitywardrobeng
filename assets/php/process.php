@@ -1,6 +1,4 @@
 <?php 
-	session_start();
-
 	include 'func.php';
 
 	$f = new ApplicationForm();
@@ -19,7 +17,7 @@
 		
 		// check if number already exist!
 		if($num_chk->num_rows == 1){
-			$targetUrl = "../../form.php";			
+			$targetUrl = "../../form.php";
 			$_SESSION['number-exit'] = "Phone number already exist!";
 			header("Location: {$targetUrl}");
 			exit();
@@ -87,14 +85,14 @@
 			$encryptedId = base64_encode($cipherText);
 			$redirectUrl = "{$targetUrl}?id={$encryptedId}&&ky={$ekey}&&iv={$eiv}&&id={$data}";
 
-			// send email
-			// if (!empty($email_validate)) {
-			// 	$sendMail = $f->sendMail($email_validate, $access_code, $stream_name, $shopping_date, $shopping_address, $time_allocated);
-			// }			
+			send email
+			if (!empty($email_validate)) {
+				$sendMail = $f->sendMail($email_validate, $access_code, $stream_name, $shopping_date, $shopping_address, $time_allocated);
+			}			
 
 			// send SMS
 			if (!empty($number)) {
-				
+
 				$msg = '
 						Community WardrobeNG \n
 						Access code: '.$access_code.'\n

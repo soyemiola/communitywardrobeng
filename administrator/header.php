@@ -1,6 +1,4 @@
 <?php 
-  session_start();
-
   if (!$_SESSION['auth'] || $_SESSION['auth'] != True) {
     header("Location: auth-login.php");
     exit();

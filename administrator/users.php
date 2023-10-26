@@ -1,7 +1,6 @@
 <?php 
-  include 'header.php';
-
   include '../assets/php/functions.php';
+  include 'header.php';
 
   $a = new Community();
 
@@ -48,17 +47,17 @@
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                           <i class="icofont icofont-close-line-circled"></i>
                                           </button>
-                                          <strong>Notification!</strong> '.$_SESSION['del_success'].'
+                                          <strong>Alert!</strong> '.$_SESSION['del_success'].'
                                         </div>';
 
                                   unset($_SESSION['del_success']);
                               }
                               if(isset($_SESSION['del_error'])) {
-                                  echo '<div class="alert alert-success" id="alert_msg_id">
+                                  echo '<div class="alert alert-danger" id="alert_msg_id">
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                           <i class="icofont icofont-close-line-circled"></i>
                                           </button>
-                                          <strong>Notification!</strong> '.$_SESSION['del_error'].'
+                                          <strong>Alert!</strong> '.$_SESSION['del_error'].'
                                         </div>';
 
                                   unset($_SESSION['del_error']);

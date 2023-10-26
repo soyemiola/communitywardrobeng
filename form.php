@@ -1,6 +1,4 @@
 <?php 
-	session_start();
-
 	include 'assets/php/func.php';
 
 	$getA = new ApplicationForm();

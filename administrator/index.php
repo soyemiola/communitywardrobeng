@@ -1,7 +1,6 @@
 <?php 
- include 'header.php';
-
   include '../assets/php/functions.php';
+  include 'header.php';
 
   $counts = new Community();
 

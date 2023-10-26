@@ -1,7 +1,5 @@
   <?php 
 	
-	session_start();
-
 	include '../assets/php/functions.php';
 
 	$v = new Volunteers();
@@ -21,5 +19,9 @@
 
 	    header("Location: recipients.php");
 	    exit();
+	    // echo "<script>
+		// 			window.location.href = 'recipients.php';
+		// 		</script>";
 	}
 ?> 
+

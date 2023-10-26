@@ -1,12 +1,8 @@
 <?php 
-	session_start();
-
 	include 'func.php';
 
 	$f = new Volunteers_Registration();
-	// $key = random_bytes(32); // 256-bit key (32 bytes)
-	// $iv = random_bytes(16); // 128-bit IV (16 bytes)
-
+	
 	if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST['robot'])) {
 
 		$date = date("F j, Y, g:i a");
